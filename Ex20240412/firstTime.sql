@@ -159,5 +159,101 @@ FROM emp
 WHERE comm IS NOT NULL
 ;
 
+--     3. LIKE 연산자
+--        지정한 문자형태와 일치한 자원들을 검색할 때 사용한다.
+--        [형식]
+--        - % : 모든 값
+--        - _ : 하나의 값
+--        
+--        1) 'M%' : M으로 시작하는 모든 값(Michael, Mike, Mk14,...)
+--        2) '%n' : n으로 끝나는 모든 값(13028mnnn, person, 100n)
+--        3) '%a%' : a가 포함된 모든 값(1apart100, apple, Na,...)
+
+--        4) 'M______' : M으로 시작하는 값들 중 전체 문자의 수가 총 7자인 값(Michael)
+ 
+
+-- 		예) emp테이블에서 입사일이 1981년인 사원들의 정보를
+-- 			사번, 이름, 직종, 입사일 순으로 출력하자.
+
+SELECT empno, ename, job, hiredate
+FROM emp
+WHERE hiredate LIKE '1981-%'
+;
+
+
+
+-- SQL 함수
+--   기본적으로 쿼리(질의)문을 더욱 강력하게 하고, 데이터 값을 조작하는 데 있어 도움이 되는 것이 바로 SQL함수다. 
+
+--  SQL함수의 특징과 이점
+--  : 자원에 대한 연산을 수행할 수 있다.
+--  : 개별적인 데이터 항목을 수행할 수 있다.
+--  : 그룹화 작업에도 용이하다.
+
+--  SQL함수의 종류
+--    - 문자함수(변환함수, 조작함수)
+--    - 숫자함수
+--    - 날짜함수
+
+--  문자함수
+--   1) 변환함수
+-- 		- LOWER(컬럼명 또는 값) : 알파벳 값을 소문자로 바꾸어준다.
+-- 		- UPPER(컬럼명 또는 값) : 알파벳 값을 대문자로 바꾸어준다.
+-- 		- INITCAP(컬럼명 또는 값) : 알파벳 첫 문자를 대문자로 바꾸어준다. (오라클 지원)
+
+SELECT empno, ename, LOWER(ename) AS l_name, job
+FROM emp
+;
+
+SELECT empno, job, LOWER(job) AS "직종 별칭", sal
+FROM emp
+;
+
+--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  -- 
+SELECT empno, ename, sal, job
+FROM emp
+WHERE LOWER(ename) = LOWER('FoRd')
+;
+
+--  2) 조작함수
+--  	- CONCAT : 두 문자열 연결
+--  	- SUBSTRING : 특정 문자나 문자열을 추출(자바의 substring())
+--  	- SUBSTR : SUBSTRING
+--  	- LEFT : 왼쪽부터 지정한 길이만큼을 추출할 때 사용
+--  	- RIGHT : 오른쪽부터 지정한 길이만큼을 추출할 때 사용
+--  	- LENGTH : 문자열의 길이
+--  	- INSTR : 명시된 문자열의 위치값(자바의 indexOf())
+--  	- LTRIM : 문자열의 왼쪽에 있는 공백제거 : "    TEST  " > "TEST  "
+--  	- RTRIM : 문자열의 오른쪽에 있는 공백제거 : "    TEST  " > "    TEST"
+--  	- REVERSE : 문자열의 순서를 역순으로 만든다.
+
+-- 	예문) emp테이블에서 각 사원들의 정보를
+-- 			사번, 이름, 직종, 직종의 3번째 값 순으로 출력하자.
+
+SELECT empno, ename, job, SUBSTR(job,3,1) as 'substr(job)', SUBSTRING(job,3,1) as 'substring(job)', LENGTH(job) as 'length(job)'
+FROM emp
+;
+
+--  
+--  
+--  
+--  
+--  
+--  
+--  
+--  
+--  
+--  
+--  
+--  
+--  
+--  
+--  
+--  
+
+
+
+
+
 
 
